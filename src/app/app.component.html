@@ -1,0 +1,48 @@
+
+<div class="container">
+  <h2>Image Search</h2>
+  <form #searchForm = "ngForm" (ngSubmit)="onSearch(searchForm)">
+    <div class="from-group">
+      <label for="firstName">First Name</label>
+      <input class="form-control" type="text" id="firstName" [(ngModel)]="userRequest.firstName" name="firstName" required>
+      <label for="lastName">Last Name</label>
+      <input class="form-control" type="text" id="lastName" [(ngModel)]="userRequest.lastName" name="lastName" required>
+      <label for="office">Company</label>
+      <input class="form-control" type="text" id="office"  [(ngModel)]="userRequest.office" name="office">
+
+      <label for="address">Address</label>
+      <input class="form-control" type="text" id="address" [(ngModel)]="userRequest.address" name="address">
+
+      <label for="education">Education Institution Short From</label>
+      <input class="form-control" type="text" id="education" [(ngModel)]="userRequest.education" name="education">
+      <label for="geolocation">GeoLocation</label>
+      <input class="form-control" type="text" id="geolocation" [(ngModel)]="userRequest.geolocation" name="geolocation">
+      <br>
+      <label for="token">Access Token</label>
+      <input class="form-control" type="text" id="token" [(ngModel)]="token" name="token">
+      <button class="form-control btn btn-primary" type="submit" >Search </button>
+
+    </div>
+  </form>
+  <h1>All Search Result include Name and Geolocation</h1>
+  <h2 *ngIf="!isItemWithProfAndAddressLength()">Search Result with Address And Company Name</h2>
+   <div class="image-container">
+     <div *ngFor="let item of itemsWithProfAndAddress">
+       <img src="{{item.link}}" alt="..." class="img-thumbnail">
+     </div>
+
+   </div>
+  <h2 *ngIf="!isItemWithProfAndEduLength()">Search Result with Education </h2>
+  <div class="image-container">
+    <div *ngFor="let item of itemsWithProfAndEdu">
+      <img src="{{item.link}}" alt="..." class="img-thumbnail">
+    </div>
+  </div>
+  <h2 *ngIf="!isItemWithRowLength()">Raw Search Result</h2>
+  <div class="image-container">
+    <div *ngFor="let item of itemsRow">
+      <img src="{{item.link}}" alt="..." class="img-thumbnail">
+    </div>
+  </div>
+
+  </div>
