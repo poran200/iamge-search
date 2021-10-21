@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Image, ImageSearchService} from './service/image-search.service';
 import {HttpErrorResponse} from '@angular/common/http';
+
 export interface UserRequest {
   firstName: string;
   lastName: string;
@@ -28,6 +29,9 @@ export class AppComponent {
 
   onSearch(searchForm: NgForm): any  {
     console.log(searchForm.value);
+    if ( localStorage.getItem('token') == null){
+      localStorage.setItem('token', searchForm.value.token);
+    }
     this.imageSearchService.getImages(this.userRequest, searchForm.value.token).subscribe(response => {
         console.log(response);
         this.itemsWithProfAndAddress = response.data.itemsWithProfAndAddress;
@@ -36,6 +40,7 @@ export class AppComponent {
     }, (error: HttpErrorResponse) => {
       if (error.status === 401) {
         window.alert('UnAuthorized Provide a valid token');
+        localStorage.clear();
       }else{
         window.alert(error.status);
       }
